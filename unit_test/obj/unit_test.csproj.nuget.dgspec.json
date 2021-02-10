@@ -1,34 +1,124 @@
 {
   "format": 1,
   "restore": {
-    "/home/lockey23/ProjetoFinalLocaliza/unit_test/unit_test.csproj": {}
+    "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\unit_test\\unit_test.csproj": {}
   },
   "projects": {
-    "/home/lockey23/ProjetoFinalLocaliza/unit_test/unit_test.csproj": {
+    "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/lockey23/ProjetoFinalLocaliza/unit_test/unit_test.csproj",
-        "projectName": "unit_test",
-        "projectPath": "/home/lockey23/ProjetoFinalLocaliza/unit_test/unit_test.csproj",
-        "packagesPath": "/home/lockey23/.nuget/packages/",
-        "outputPath": "/home/lockey23/ProjetoFinalLocaliza/unit_test/obj/",
+        "projectUniqueName": "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\api\\api.csproj",
+        "projectName": "api",
+        "projectPath": "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\api\\api.csproj",
+        "packagesPath": "C:\\Users\\lucio.neto\\.nuget\\packages\\",
+        "outputPath": "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/lockey23/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\lucio.neto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "noWarn": [
+                "NU1605"
+              ]
+            },
+            "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "noWarn": [
+                "NU1605"
+              ]
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\unit_test\\unit_test.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\unit_test\\unit_test.csproj",
+        "projectName": "unit_test",
+        "projectPath": "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\unit_test\\unit_test.csproj",
+        "packagesPath": "C:\\Users\\lucio.neto\\.nuget\\packages\\",
+        "outputPath": "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\unit_test\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\lucio.neto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\api\\api.csproj": {
+                "projectPath": "C:\\LUCIO PESSOAL\\ProjetoFinal_Localiza\\ProjetoFinal-Grupo05\\api\\api.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -65,11 +155,14 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
