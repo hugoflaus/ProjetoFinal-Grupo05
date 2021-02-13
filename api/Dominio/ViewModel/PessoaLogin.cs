@@ -1,8 +1,13 @@
-﻿namespace api.Dominio.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace api.Dominio.ViewModel
 {
-    public class PessoaLogin 
+    public record PessoaLogin 
     {
-       public string Login { get; set; }
-       public string Senha { get; set; }
+        [Required]
+        public string Login { get; set; }
+
+        [Required]
+        public string Senha { get; set; }
     }
 }

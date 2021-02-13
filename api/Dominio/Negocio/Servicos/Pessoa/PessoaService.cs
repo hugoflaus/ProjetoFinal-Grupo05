@@ -1,5 +1,6 @@
 ﻿using api.Dominio.Autenticação;
 using api.Dominio.Entidade;
+using api.Dominio.Negocio.Builder;
 using api.Dominio.Negocio.Servicos.Pessoa;
 using api.Dominio.ViewModel;
 using System;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace api.Dominio.Negocio.Servicos.Usuarios
 {
-    public class PessoaService<T>
+    public class PessoaService 
     {
-        private IPessoaRepositorio<T> repositorio;
-        public PessoaService(IPessoaRepositorio<T> repositorio)
+        private IPessoaRepositorio  repositorio;
+        public PessoaService(IPessoaRepositorio repositorio)
         {
             this.repositorio = repositorio;
         }
@@ -37,6 +38,12 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
                 Name = pessoaLogada.Nome,
                 Token = token.GerarToken(pessoaLogada)
             };
+        }
+
+        public async Task Salvar(PessoaSalvar pessoa)
+        {
+            var pessoaBuilder = BuilderPessoa.ConverteEntidade<Usuario>(pessoa);
+            await repositorio.Salvar(pessoaBuilder);
         }
     }
 }

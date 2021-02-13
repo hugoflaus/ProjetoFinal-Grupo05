@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Dominio.Entidade;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.InfraEstrutura.DataBase
 {
-    public class PessoaRepositorio<T> : IPessoaRepositorio<T> where T : class
+    public class PessoaRepositorio : IPessoaRepositorio
     {
 
         private readonly EntityContext context;
@@ -18,7 +18,7 @@ namespace api.InfraEstrutura.DataBase
         }
 
         
-        public async Task Alterar(T pessoa)
+        public async Task Alterar(Usuario pessoa)
         {
             context.Entry(pessoa).State = EntityState.Modified;
             await context.SaveChangesAsync();
@@ -30,15 +30,15 @@ namespace api.InfraEstrutura.DataBase
             return await context.Usuario.Where(u => u.Documento == loginAcesso && u.Senha == senhaAcesso).FirstOrDefaultAsync();
         }
 
-        public async Task Excluir(T pessoa)
+        public async Task Excluir(Usuario pessoa)
         {
-            context.Set<T>().Remove(pessoa);
+            context.Usuario.Remove(pessoa);
             await context.SaveChangesAsync();
         }
 
-        public async Task Salvar(T pessoa)
+        public async Task Salvar(Usuario pessoa)
         {
-            context.Set<T>().Add(pessoa);
+            context.Usuario.Add(pessoa);
             await context.SaveChangesAsync();
         }
     }

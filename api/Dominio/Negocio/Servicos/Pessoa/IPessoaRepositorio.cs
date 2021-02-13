@@ -6,11 +6,11 @@ using api.Dominio.Entidade;
 
 namespace api.Dominio.Negocio.Servicos.Pessoa
 {
-    public interface IPessoaRepositorio<T> 
+    public interface IPessoaRepositorio
     {
-        Task Alterar(T pessoa);
-        Task Salvar(T pessoa);
-        Task Excluir(T pessoa);
+        Task Alterar(Usuario usuario);
+        Task Salvar(Usuario usuario);
+        Task Excluir(Usuario usuario);
         Task<Usuario> BuscarLoginSenha(string loginAcesso, string senhaAcesso);
 
     }
