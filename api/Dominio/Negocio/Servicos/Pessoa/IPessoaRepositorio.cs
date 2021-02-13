@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Dominio.Entidade;
 
-namespace api.Dominio.Negocio.Servicos.Usuarios
+namespace api.Dominio.Negocio.Servicos.Pessoa
 {
-    public interface IPessoaRepositorio
+    public interface IPessoaRepositorio<T> 
     {
-        Task Alterar<T>(T pessoa);
-        Task Salvar<T>(T pessoa);
-        Task Excluir<T>(T pessoa);
+        Task Alterar(T pessoa);
+        Task Salvar(T pessoa);
+        Task Excluir(T pessoa);
         Task<Usuario> BuscarLoginSenhaUsuario(string loginAcesso, string senhaAcesso);
         Task<Operador> BuscarLoginSenhaOperador(string loginAcesso, string senhaAcesso);
 

@@ -28,5 +28,7 @@ namespace api.Dominio.Entidade
         public string Cidade { get; set; }
 
         public string Uf { get; set; }
+
+        public string Documento { get; set; }
     }
 }

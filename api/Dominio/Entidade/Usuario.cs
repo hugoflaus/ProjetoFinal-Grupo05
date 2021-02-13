@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Dominio.Entidade
 {
-    public class Usuario : IPessoa, IUsuario
+    public class Usuario : IPessoa
     {
         public int Id { get; set; }     
 
@@ -30,5 +30,7 @@ namespace api.Dominio.Entidade
         public string Cidade { get; set; }
 
         public string Uf { get; set; }
+
+        public string Documento { get; set; }
     }
 }
