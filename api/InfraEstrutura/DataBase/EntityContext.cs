@@ -19,6 +19,6 @@ namespace api.Infra.Database
         }
         
         public DbSet<Usuario> Usuario { get; set; }
-        public DbSet<Operador> Operador { get; set; }
+    
     }
 }

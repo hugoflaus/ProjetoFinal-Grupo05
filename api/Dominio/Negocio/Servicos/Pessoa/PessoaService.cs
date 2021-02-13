@@ -9,46 +9,34 @@ using System.Threading.Tasks;
 
 namespace api.Dominio.Negocio.Servicos.Usuarios
 {
-    public class PessoaService<T> 
+    public class PessoaService<T>
     {
         private IPessoaRepositorio<T> repositorio;
         public PessoaService(IPessoaRepositorio<T> repositorio)
         {
-            this.repositorio = repositorio;                
+            this.repositorio = repositorio;
         }
 
         public async Task<PessoaJwt> LoginPessoa(PessoaLogin pessoa, IToken token)
         {
-            if(pessoa.Login.Length < 11)
+
+            if(pessoa.Login.Length >=11)
             {
-                var pessoaLogada = await repositorio.BuscarLoginSenhaOperador(pessoa.Login, pessoa.Senha);
-
-                if (pessoaLogada == null)
-                    throw new Exception("Usuario e Login invalidos");
-
-                return new PessoaJwt()
-                {
-                    Id = pessoaLogada.Id,
-                    Name = pessoaLogada.Nome,
-                    Token = token.GerarToken(pessoaLogada)
-                };
-
+                if(!ValidaCPF.ValidarCPF(pessoa.Login)) 
+                    throw new Exception("CPF inválido !");
             }
-            else
+
+            var pessoaLogada = await repositorio.BuscarLoginSenha(pessoa.Login, pessoa.Senha);
+
+            if (pessoaLogada == null)
+                throw new Exception("Usuario e Login invalidos");
+
+            return new PessoaJwt()
             {
-                var pessoaLogada = await repositorio.BuscarLoginSenhaUsuario(pessoa.Login, pessoa.Senha);
-
-                if (pessoaLogada == null)
-                    throw new Exception("Usuario e Login invalidos");
-
-                return new PessoaJwt()
-                {
-                    Id = pessoaLogada.Id,
-                    Name = pessoaLogada.Nome,
-                    Token = token.GerarToken(pessoaLogada)
-                };
-            }             
+                Id = pessoaLogada.Id,
+                Name = pessoaLogada.Nome,
+                Token = token.GerarToken(pessoaLogada)
+            };
         }
-
     }
 }

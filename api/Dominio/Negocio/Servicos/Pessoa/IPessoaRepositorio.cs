@@ -11,8 +11,7 @@ namespace api.Dominio.Negocio.Servicos.Pessoa
         Task Alterar(T pessoa);
         Task Salvar(T pessoa);
         Task Excluir(T pessoa);
-        Task<Usuario> BuscarLoginSenhaUsuario(string loginAcesso, string senhaAcesso);
-        Task<Operador> BuscarLoginSenhaOperador(string loginAcesso, string senhaAcesso);
+        Task<Usuario> BuscarLoginSenha(string loginAcesso, string senhaAcesso);
 
     }
 }

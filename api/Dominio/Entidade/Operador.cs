@@ -15,8 +15,6 @@ namespace api.Dominio.Entidade
 
         public PerfilUsuario Tipo { get; set; }
 
-        public string Matricula { get; set; }
-
         public DateTime Aniversario { get; set; }
 
         public string Cep { get; set; }

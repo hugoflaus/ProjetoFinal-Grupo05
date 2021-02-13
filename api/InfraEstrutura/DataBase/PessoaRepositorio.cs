@@ -24,14 +24,9 @@ namespace api.InfraEstrutura.DataBase
             await context.SaveChangesAsync();
         }
 
-        public async Task<Operador> BuscarLoginSenhaOperador(string loginAcesso, string senhaAcesso)
+        public async Task<Usuario> BuscarLoginSenha(string loginAcesso, string senhaAcesso)
         {
-            return await context.Operador.Where(o => o.Documento == loginAcesso && o.Senha == senhaAcesso).FirstOrDefaultAsync();
-        }
-
-        public async Task<Usuario> BuscarLoginSenhaUsuario(string loginAcesso, string senhaAcesso)
-        {
-            
+            Console.WriteLine("Chegou aqui");
             return await context.Usuario.Where(u => u.Documento == loginAcesso && u.Senha == senhaAcesso).FirstOrDefaultAsync();
         }
 
