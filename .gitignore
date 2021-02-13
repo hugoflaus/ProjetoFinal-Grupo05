@@ -464,3 +464,8 @@ obj/
 .vscode/*
 
 .idea
+
+
+### AppSettings ###
+
+appsettings.json

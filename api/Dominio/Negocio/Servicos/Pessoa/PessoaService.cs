@@ -17,34 +17,37 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
             this.repositorio = repositorio;                
         }
 
-        public async Task<PessoaJwt> LoginUsuario(Usuario pessoa, IToken token)
+        public async Task<PessoaJwt> LoginPessoa(PessoaLogin pessoa, IToken token)
         {
-             Console.WriteLine("Chegou service"+pessoa.Cpf);
-            var pessoaLogada = await repositorio.BuscarLoginSenhaUsuario(pessoa.Cpf, pessoa.Senha);
-
-            if (pessoaLogada == null)
-                throw new Exception("Usuario e Login invalidos");
-
-            return new PessoaJwt()
+            if(pessoa.Login.Length < 11)
             {
-               Id = pessoaLogada.Id,
-               Name = pessoaLogada.Nome,
-               Token = token.GerarToken(pessoaLogada)
-            };
-        }
-        public async Task<PessoaJwt> LoginOperador(Operador pessoa, IToken token)
-        {
-            var pessoaLogada = await repositorio.BuscarLoginSenhaOperador(pessoa.Matricula, pessoa.Senha);
+                var pessoaLogada = await repositorio.BuscarLoginSenhaOperador(pessoa.Login, pessoa.Senha);
 
-            if (pessoaLogada == null)
-                throw new Exception("Usuario e Login invalidos");
+                if (pessoaLogada == null)
+                    throw new Exception("Usuario e Login invalidos");
 
-            return new PessoaJwt()
+                return new PessoaJwt()
+                {
+                    Id = pessoaLogada.Id,
+                    Name = pessoaLogada.Nome,
+                    Token = token.GerarToken(pessoaLogada)
+                };
+
+            }
+            else
             {
-               Id = pessoaLogada.Id,
-               Name = pessoaLogada.Nome,
-               Token = token.GerarToken(pessoaLogada)
-            };
+                var pessoaLogada = await repositorio.BuscarLoginSenhaUsuario(pessoa.Login, pessoa.Senha);
+
+                if (pessoaLogada == null)
+                    throw new Exception("Usuario e Login invalidos");
+
+                return new PessoaJwt()
+                {
+                    Id = pessoaLogada.Id,
+                    Name = pessoaLogada.Nome,
+                    Token = token.GerarToken(pessoaLogada)
+                };
+            }             
         }
 
     }

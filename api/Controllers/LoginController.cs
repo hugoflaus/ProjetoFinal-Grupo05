@@ -31,35 +31,18 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        [Route("/login/usuario")]
+        [Route("/login")]
         [AllowAnonymous]
         public async Task<ActionResult> LoginUsuario([FromBody]PessoaLogin loginPessoa)
         {
             try
             {
-                if (loginPessoa.Login.Length < 11)
-                {
-                    return StatusCode(200, await _pessoaOperador.LoginOperador(new Operador()
-                    {
-                        Matricula = loginPessoa.Login,
-                        Senha = loginPessoa.Senha
-                    }, new Token<Operador>()));
-                }
-                else
-                {
-                    return StatusCode(200, await _pessoaUsuario.LoginUsuario(new Usuario()
-                    {
-                        Cpf = loginPessoa.Login,
-                        Senha = loginPessoa.Senha
-                    }, new Token<Usuario>()));
-                }
+                return StatusCode(200, await _pessoaOperador.LoginPessoa(loginPessoa, new Token<PessoaLogin>()));                                    
             }
             catch (System.Exception er)
             {
-
                 return StatusCode(401, new { er.Message });
             }
-
         }
         /* [HttpGet]
         [Route("/login/operador")]
