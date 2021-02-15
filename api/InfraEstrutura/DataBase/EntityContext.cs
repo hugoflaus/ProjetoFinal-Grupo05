@@ -18,7 +18,7 @@ namespace api.Infra.Database
             optionsBuilder.UseSqlServer(jAppSettings["ConnectionString"].ToString());
         }
         
-        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Pessoa> Usuario { get; set; }
     
     }
 }

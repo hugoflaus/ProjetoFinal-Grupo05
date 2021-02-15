@@ -1,21 +1,21 @@
 ﻿using api.Dominio.Autenticação;
-using api.Dominio.Entidade;
 using api.Dominio.Negocio.Builder;
-using api.Dominio.Negocio.Servicos.Pessoa;
+using api.Dominio.Entidade;
 using api.Dominio.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using api.InfraEstrutura.Servico.Repositorio;
 
 namespace api.Dominio.Negocio.Servicos.Usuarios
 {
     public class PessoaService 
     {
         private IPessoaRepositorio  repositorio;
-        public PessoaService(IPessoaRepositorio repositorio)
+        private IEntityRepositorio  entityRepositorio;
+        public PessoaService(IPessoaRepositorio repositorio, IEntityRepositorio entityRepositorio)
         {
             this.repositorio = repositorio;
+            this.entityRepositorio = entityRepositorio;
         }
 
         public async Task<PessoaJwt> LoginPessoa(PessoaLogin pessoa, IToken token)
@@ -42,8 +42,8 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
 
         public async Task Salvar(PessoaSalvar pessoa)
         {
-            var pessoaBuilder = BuilderPessoa.ConverteEntidade<Usuario>(pessoa);
-            await repositorio.Salvar(pessoaBuilder);
+            var pessoaBuilder = BuilderPessoa.ConverteEntidade<Dominio.Entidade.Pessoa>(pessoa);
+            await entityRepositorio.Salvar<Pessoa>(pessoaBuilder);
         }
     }
 }

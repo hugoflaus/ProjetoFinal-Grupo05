@@ -7,7 +7,7 @@ using api.Dominio.Negocio.Servicos.Usuarios;
 using api.Dominio.ViewModel;
 using api.Infra.Database;
 using api.InfraEstrutura.Autenticação;
-using api.InfraEstrutura.DataBase;
+using api.InfraEstrutura.Servico.Repositorio;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,7 +25,7 @@ namespace api.Controllers
         public UsuarioController(EntityContext context, ILogger<LoginController> logger)
         {
             _logger = logger;
-            _pessoaUsuario = new PessoaService(new PessoaRepositorio(context));            
+            _pessoaUsuario = new PessoaService(new PessoaRepositorio(context), new EntityRepositorio(context));            
         }
 
         [HttpPost]
