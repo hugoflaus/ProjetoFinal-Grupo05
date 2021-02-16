@@ -40,6 +40,15 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
             };
         }
 
+        public async Task<Pessoa> BuscarPorId(int id)
+        {
+            var pessoa = await entityRepositorio.FindById<Pessoa>(id);
+            if (pessoa == null)
+                throw new Exception("Usuario não encontrado.");
+
+            return pessoa;   
+        }
+
         public async Task Salvar(PessoaSalvar pessoa)
         {
             var pessoaBuilder = BuilderPessoa.ConverteEntidade<Pessoa>(pessoa);

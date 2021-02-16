@@ -34,7 +34,9 @@ namespace api.InfraEstrutura.Servico.Repositorio
         public async Task<T> FindById<T>(int id) where T : class
         {
             var entity = await context.Set<T>().FindAsync(id);
-            context.Entry(entity).State = EntityState.Detached;
+            if(entity != null)
+                context.Entry(entity).State = EntityState.Detached;
+            
             return entity;
         }
 

@@ -28,6 +28,23 @@ namespace api.Controllers
             _pessoaUsuario = new PessoaService(new PessoaRepositorio(context), new EntityRepositorio(context));            
         }
 
+
+        [HttpGet]
+        [Route("/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult> BuscarPorId(int id)
+        {
+            try
+            {
+                var pessoa = await _pessoaUsuario.BuscarPorId(id);
+                return StatusCode(200, pessoa);                                    
+            }
+            catch (System.Exception er)
+            {
+                return StatusCode(401, new { er.Message });
+            }
+        }
+
         [HttpPost]
         [Route("/usuario")]
         [AllowAnonymous]
