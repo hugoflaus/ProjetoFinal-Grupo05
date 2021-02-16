@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace api.InfraEstrutura.Servico.Repositorio
 {
@@ -6,6 +6,6 @@ namespace api.InfraEstrutura.Servico.Repositorio
     {
         Task Alterar<T>(T usuario);
         Task Salvar<T>(T usuario);
-        Task Excluir<T>(T usuario);
+        Task Excluir<T>(T usuario);          
     }
 }

@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using api.Infra.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +15,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
         public async Task Alterar<T>(T usuario)
         {
             context.Entry(usuario).State = EntityState.Modified;
+            //context.Update(usuario);
             await context.SaveChangesAsync();
         }
 
@@ -28,5 +29,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
             context.Add(usuario);
             await context.SaveChangesAsync();
         }
+
+
     }
 }

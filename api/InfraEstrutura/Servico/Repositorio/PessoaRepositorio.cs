@@ -23,6 +23,11 @@ namespace api.InfraEstrutura.Servico.Repositorio
         {
             return await context.Usuario.Where(u => u.Documento == loginAcesso && u.Senha == senhaAcesso).FirstOrDefaultAsync();
         }
+
+        public async Task<Pessoa> FindById(int id)
+        {
+            return await context.Usuario.FindAsync(id); 
+        }
     }
 }
 

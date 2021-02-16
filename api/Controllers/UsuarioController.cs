@@ -43,13 +43,22 @@ namespace api.Controllers
                 return StatusCode(401, new { er.Message });
             }
         }
-        /* [HttpGet]
-        [Route("/login/operador")]
+
+        [HttpPut]
+        [Route("/usuario/{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult> LoginOperador(PessoaLogin loginUsuario)
+        public async Task<ActionResult> Put(int id, [FromBody] Pessoa pessoaAlterar)
         {
-            return StatusCode(200, );
-        } */
+            try
+            {
+                await _pessoaUsuario.Alterar(id, pessoaAlterar);
+                return StatusCode(200);
+            }
+            catch (System.Exception er)
+            {
+                return StatusCode(401, new { er.Message });
+            }
+        }
 
 
     }

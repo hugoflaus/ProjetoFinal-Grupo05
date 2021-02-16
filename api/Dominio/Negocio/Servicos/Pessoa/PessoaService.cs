@@ -42,8 +42,19 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
 
         public async Task Salvar(PessoaSalvar pessoa)
         {
-            var pessoaBuilder = BuilderPessoa.ConverteEntidade<Dominio.Entidade.Pessoa>(pessoa);
+            var pessoaBuilder = BuilderPessoa.ConverteEntidade<Pessoa>(pessoa);
             await entityRepositorio.Salvar<Pessoa>(pessoaBuilder);
+        }
+
+        public async Task Alterar(int id, Pessoa pessoa)
+        {
+            var pessoaAlteracao = await repositorio.FindById(id);
+
+            if (pessoaAlteracao == null)
+                throw new Exception("Usuario não encontrado.");
+            
+            //var pessoaBuilder = BuilderPessoa.ConverteEntidade<Pessoa>(pessoa);             
+            await entityRepositorio.Alterar<Pessoa>(pessoa);  
         }
     }
 }

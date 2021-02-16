@@ -27,6 +27,9 @@ namespace api.Dominio.ViewModel
         public string Uf { get; set; }
 
         [Required]
+        public int Tipo { get; set; }
+
+        [Required]
         public string Documento { get; set; }
     }
 }

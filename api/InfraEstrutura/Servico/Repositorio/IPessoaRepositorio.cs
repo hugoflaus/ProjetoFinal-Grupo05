@@ -9,6 +9,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
     public interface IPessoaRepositorio
     {
         Task<Pessoa> BuscarLoginSenha(string loginAcesso, string senhaAcesso);
+        Task<Pessoa> FindById(int id);
 
     }
 }
