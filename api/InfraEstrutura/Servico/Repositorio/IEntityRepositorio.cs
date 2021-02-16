@@ -6,6 +6,8 @@ namespace api.InfraEstrutura.Servico.Repositorio
     {
         Task Alterar<T>(T usuario);
         Task Salvar<T>(T usuario);
-        Task Excluir<T>(T usuario);          
+        Task Excluir<T>(T usuario);   
+
+        Task<T> FindById<T>(int id) where T : class;       
     }
 }

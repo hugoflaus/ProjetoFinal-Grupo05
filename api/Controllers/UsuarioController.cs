@@ -47,11 +47,27 @@ namespace api.Controllers
         [HttpPut]
         [Route("/usuario/{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult> Put(int id, [FromBody] Pessoa pessoaAlterar)
+        public async Task<ActionResult> Put(int id, [FromBody] PessoaAlterar pessoaAlterar)
         {
             try
             {
                 await _pessoaUsuario.Alterar(id, pessoaAlterar);
+                return StatusCode(200);
+            }
+            catch (System.Exception er)
+            {
+                return StatusCode(401, new { er.Message });
+            }
+        }
+
+        [HttpDelete]
+        [Route("/usuario/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult> Remover(int id)
+        {
+            try
+            {
+                await _pessoaUsuario.Remover(id);
                 return StatusCode(200);
             }
             catch (System.Exception er)

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using api.Infra.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,13 +16,13 @@ namespace api.InfraEstrutura.Servico.Repositorio
         public async Task Alterar<T>(T usuario)
         {
             context.Entry(usuario).State = EntityState.Modified;
-            //context.Update(usuario);
             await context.SaveChangesAsync();
         }
 
-        public Task Excluir<T>(T usuario)
+        public async Task Excluir<T>(T usuario)
         {
-            throw new System.NotImplementedException();
+            context.Remove(usuario);
+            await context.SaveChangesAsync();
         }
 
         public async Task Salvar<T>(T usuario) 
@@ -29,6 +30,15 @@ namespace api.InfraEstrutura.Servico.Repositorio
             context.Add(usuario);
             await context.SaveChangesAsync();
         }
+
+        public async Task<T> FindById<T>(int id) where T : class
+        {
+            var entity = await context.Set<T>().FindAsync(id);
+            context.Entry(entity).State = EntityState.Detached;
+            return entity;
+        }
+
+      
 
 
     }
