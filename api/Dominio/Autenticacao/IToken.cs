@@ -1,4 +1,4 @@
-using api.Dominio.Entidade;
+using api.Dominio.Entidade.Usuario;
 
 namespace api.Dominio.Autenticação
 {

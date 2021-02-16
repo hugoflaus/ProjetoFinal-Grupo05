@@ -1,6 +1,6 @@
 using api.Dominio.Entidade.Enums;
 
-namespace api.Dominio.Entidade
+namespace api.Dominio.Entidade.Usuario
 {
     public interface IPessoa
     {

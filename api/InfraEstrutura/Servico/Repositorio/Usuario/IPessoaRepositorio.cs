@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using api.Dominio.Entidade;
+using api.Dominio.Entidade.Usuario;
 
-namespace api.InfraEstrutura.Servico.Repositorio
+namespace api.InfraEstrutura.Servico.Repositorio.Usuario
 {
     public interface IPessoaRepositorio
     {

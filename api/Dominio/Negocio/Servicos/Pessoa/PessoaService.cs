@@ -1,11 +1,12 @@
 ﻿using api.Dominio.Autenticação;
 using api.Dominio.Negocio.Builder;
-using api.Dominio.Entidade;
-using api.Dominio.ViewModel;
+using api.Dominio.Entidade.Usuario;
+using api.Dominio.ViewModel.Pessoa;
 using System;
 using System.Threading.Tasks;
 using api.InfraEstrutura.Servico.Repositorio;
 using System.Collections.Generic;
+using api.InfraEstrutura.Servico.Repositorio.Usuario;
 
 namespace api.Dominio.Negocio.Servicos.Usuarios
 {
@@ -46,7 +47,7 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
             var pessoas = await entityRepositorio.BuscarTodos<Pessoa>();
             if (pessoas == null)
                 throw new Exception("Usuario não encontrado.");
-
+            
             return pessoas;   
         }
 
@@ -61,7 +62,7 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
 
         public async Task Salvar(PessoaSalvar pessoa)
         {
-            var pessoaBuilder = BuilderPessoa.ConverteEntidade<Pessoa>(pessoa);
+            var pessoaBuilder = BuilderEntidade.ConverteEntidade<Pessoa>(pessoa);
             await entityRepositorio.Salvar<Pessoa>(pessoaBuilder);
         }
 
@@ -72,7 +73,7 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
             if (pessoaAlteracao == null)
                 throw new Exception("Usuario não encontrado.");
             
-            var pessoaBuilder = BuilderPessoa.ConverteEntidade<Pessoa>(pessoa);    
+            var pessoaBuilder = BuilderEntidade.ConverteEntidade<Pessoa>(pessoa);    
             pessoaBuilder.Id = pessoaAlteracao.Id;
             pessoaBuilder.Senha = pessoaAlteracao.Senha;
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace api.Dominio.ViewModel
+namespace api.Dominio.ViewModel.Pessoa
 {
     public record PessoaAlterar
     {  

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace api.Dominio.Negocio.Builder
 {
-    public class BuilderPessoa
+    public static class BuilderEntidade
     {
-        public static T ConverteEntidade<T>(object pessoaSalvar)
+        public static T ConverteEntidade<T>(object objectParam)
         {
             var entity = Activator.CreateInstance<T>();
-            foreach (var field in pessoaSalvar.GetType().GetProperties())
+            foreach (var field in objectParam.GetType().GetProperties())
             {
-                var value = pessoaSalvar.GetType().GetProperty(field.Name).GetValue(pessoaSalvar);
+                var value = objectParam.GetType().GetProperty(field.Name).GetValue(objectParam);
                 if (value != null)
                 {
                     var prop = entity.GetType().GetProperty(field.Name);

@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using api.Dominio.Entidade;
+﻿using System.Threading.Tasks;
 using api.Dominio.Negocio.Servicos.Usuarios;
-using api.Dominio.ViewModel;
+using api.Dominio.ViewModel.Pessoa;
 using api.Infra.Database;
 using api.InfraEstrutura.Autenticação;
 using api.InfraEstrutura.Servico.Repositorio;
+using api.InfraEstrutura.Servico.Repositorio.Usuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace api.Controllers
+namespace api.Controllers.Login
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
 

@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using api.Dominio.Entidade;
+﻿using System.Threading.Tasks;
+using api.Controllers.Login;
 using api.Dominio.Negocio.Servicos.Usuarios;
-using api.Dominio.ViewModel;
+using api.Dominio.ViewModel.Pessoa;
 using api.Infra.Database;
-using api.InfraEstrutura.Autenticação;
 using api.InfraEstrutura.Servico.Repositorio;
+using api.InfraEstrutura.Servico.Repositorio.Usuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace api.Controllers
+namespace api.Controllers.Usuarios
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
 
@@ -30,7 +27,7 @@ namespace api.Controllers
 
 
         [HttpGet]
-        [Route("/buscarTodos")]
+        [Route("buscarTodos")]
         [AllowAnonymous]
         public async Task<ActionResult> BuscarTodos()
         {
@@ -48,7 +45,7 @@ namespace api.Controllers
 
 
         [HttpGet]
-        [Route("/{id}")]
+        [Route("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult> BuscarPorId(int id)
         {
@@ -64,7 +61,6 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        [Route("/usuario")]
         [AllowAnonymous]
         public async Task<ActionResult> Post([FromBody]PessoaSalvar pessoaSalvar)
         {
@@ -80,7 +76,7 @@ namespace api.Controllers
         }
 
         [HttpPut]
-        [Route("/usuario/{id}")]
+        [Route("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult> Put(int id, [FromBody] PessoaAlterar pessoaAlterar)
         {
@@ -96,7 +92,7 @@ namespace api.Controllers
         }
 
         [HttpDelete]
-        [Route("/usuario/{id}")]
+        [Route("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult> Remover(int id)
         {
@@ -110,7 +106,5 @@ namespace api.Controllers
                 return StatusCode(401, new { er.Message });
             }
         }
-
-
     }
 }

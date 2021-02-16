@@ -4,7 +4,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Text;
 using api.Dominio.Autenticação;
-using api.Dominio.Entidade;
+using api.Dominio.Entidade.Usuario;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 

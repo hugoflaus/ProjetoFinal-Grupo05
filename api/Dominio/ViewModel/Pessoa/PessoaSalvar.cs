@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace api.Dominio.ViewModel
+namespace api.Dominio.ViewModel.Pessoa
 {
     public record PessoaSalvar
     {
