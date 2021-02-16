@@ -30,6 +30,24 @@ namespace api.Controllers
 
 
         [HttpGet]
+        [Route("/buscarTodos")]
+        [AllowAnonymous]
+        public async Task<ActionResult> BuscarTodos()
+        {
+            try
+            {
+                var pessoas = await _pessoaUsuario.BuscarTodos();
+                return StatusCode(200, pessoas);                                    
+            }
+            catch (System.Exception er)
+            {
+                return StatusCode(401, new { er.Message });
+            }
+        }
+
+
+
+        [HttpGet]
         [Route("/{id}")]
         [AllowAnonymous]
         public async Task<ActionResult> BuscarPorId(int id)

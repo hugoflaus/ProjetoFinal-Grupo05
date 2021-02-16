@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using api.Infra.Database;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
             await context.SaveChangesAsync();
         }
 
-        public async Task<T> FindById<T>(int id) where T : class
+        public async Task<T> BuscarPorId<T>(int id) where T : class
         {
             var entity = await context.Set<T>().FindAsync(id);
             if(entity != null)
@@ -40,8 +41,9 @@ namespace api.InfraEstrutura.Servico.Repositorio
             return entity;
         }
 
-      
-
-
+        public async Task<List<T>> BuscarTodos<T>() where T : class
+        {
+             return await context.Set<T>().AsNoTracking<T>().ToListAsync();
+        }
     }
 }
