@@ -15,9 +15,9 @@ namespace api.Dominio.Negocio.Servicos
             this.entityRepositorio = entityRepositorio;
         }
 
-        public async Task Salvar<T>(T entity){ 
+        public async Task Salvar(T entity){ 
             
-            await entityRepositorio.Salvar<T>(entity);
+            await entityRepositorio.Salvar(entity);
         }
 
         public async Task Excluir(T entity)

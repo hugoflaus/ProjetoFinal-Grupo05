@@ -54,7 +54,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
             {
                 entity = entity.Include(incluir);
             }
-            return entity.ToList();
+            return await entity.ToListAsync();
         }
     }
 }
