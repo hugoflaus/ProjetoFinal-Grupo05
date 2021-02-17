@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using api.Dominio.Entidade.Enums;
@@ -26,24 +26,27 @@ namespace api.Dominio.Entidade.Veiculo
         public string LimitePorMalas { get; set; }
         [Required]
         public Combustivel Combustivel { get; set; }
-
+           
+        [JsonIgnore]
         [Required]
         public int IdMarca { get; set; }
 
-        [JsonIgnore]
+       
         public Marca Marca { get; set; }
 
+        [JsonIgnore]
         [Required]
         public int IdModelo { get; set; }
 
-        [JsonIgnore]
+        
         public Modelo Modelo { get; set; }
 
 
+        [JsonIgnore]
         [Required]
         public int IdCategoria { get; set; }
 
-		[JsonIgnore]
+		
         public Categoria Categoria { get; set; }
 
     }

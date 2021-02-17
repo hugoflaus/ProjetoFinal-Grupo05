@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using api.Infra.Database;
 using Microsoft.EntityFrameworkCore;
@@ -14,36 +16,45 @@ namespace api.InfraEstrutura.Servico.Repositorio
         {
             this.context = context;
         }
-        public async Task Alterar<T>(T usuario)
+        public async Task Alterar<T>(T entity)
         {
-            context.Entry(usuario).State = EntityState.Modified;
+            context.Entry(entity).State = EntityState.Modified;
             await context.SaveChangesAsync();
         }
 
-        public async Task Excluir<T>(T usuario)
+        public async Task Excluir<T>(T entity)
         {
-            context.Remove(usuario);
+            context.Remove(entity);
             await context.SaveChangesAsync();
         }
 
-        public async Task Salvar<T>(T usuario) 
+        public async Task Salvar<T>(T entity) 
         {
-            context.Add(usuario);
+            context.Add(entity);
             await context.SaveChangesAsync();
         }
 
-        public async Task<T> BuscarPorId<T>(int id) where T : class
+        public async Task<T> BuscarPorId<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes) where T : class
         {
-            var entity = await context.Set<T>().FindAsync(id);
-            if(entity != null)
-                context.Entry(entity).State = EntityState.Detached;
-            
-            return entity;
-        }
+            var entity = context.Set<T>().Where(predicate);                                      
 
-        public async Task<List<T>> BuscarTodos<T>() where T : class
+            foreach (Expression<Func<T, object>> i in includes)
+            {
+                entity = entity.Include(i);
+            }
+
+            return await entity.FirstOrDefaultAsync();
+        }       
+
+        public async Task<List<T>> BuscarTodos<T>(params Expression<Func<T, object>>[] includes) where T : class
         {
-             return await context.Set<T>().AsNoTracking<T>().ToListAsync();
+            //return await context.Set<T>().AsNoTracking<T>().ToListAsync();
+            var entity = context.Set<T>().AsQueryable();
+            foreach (Expression<Func<T, object>> incluir  in includes)       
+            {
+                entity = entity.Include(incluir);
+            }
+            return entity.ToList();
         }
     }
 }

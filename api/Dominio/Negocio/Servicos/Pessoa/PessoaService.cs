@@ -53,7 +53,7 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
 
         public async Task<Pessoa> BuscarPorId(int id)
         {
-            var pessoa = await entityRepositorio.BuscarPorId<Pessoa>(id);
+            var pessoa = await entityRepositorio.BuscarPorId<Pessoa>(pessoa => pessoa.Id == id);
             if (pessoa == null)
                 throw new Exception("Usuario não encontrado.");
 
@@ -68,7 +68,7 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
 
         public async Task Alterar(int id, PessoaAlterar pessoa)
         {
-            var pessoaAlteracao = await entityRepositorio.BuscarPorId<Pessoa>(id);
+            var pessoaAlteracao = await entityRepositorio.BuscarPorId<Pessoa>(pessoa => pessoa.Id == id);
 
             if (pessoaAlteracao == null)
                 throw new Exception("Usuario não encontrado.");
@@ -82,7 +82,7 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
 
         public async Task Remover(int id)
         {
-            var pessoa = await entityRepositorio.BuscarPorId<Pessoa>(id);
+            var pessoa = await entityRepositorio.BuscarPorId<Pessoa>(pessoa => pessoa.Id == id);
 
             if (pessoa == null)
                 throw new Exception("Usuario não encontrado.");

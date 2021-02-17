@@ -1,7 +1,10 @@
+﻿using System;
 using System.Threading.Tasks;
 using api.Controllers.Login;
 using api.Dominio.Entidade.Veiculo;
+using api.Dominio.Negocio.Builder;
 using api.Dominio.Negocio.Servicos;
+using api.Dominio.ViewModel.Veiculo;
 using api.Infra.Database;
 using api.InfraEstrutura.Servico.Repositorio;
 using Microsoft.AspNetCore.Authorization;
@@ -31,7 +34,9 @@ namespace api.Controllers.Veiculos
         {
             try
             {
-                var veiculos = await _entityService.BuscarTodos();
+                var veiculos = await _entityService.BuscarTodos(includes => includes.Categoria, 
+                                                                includes => includes.Modelo,
+                                                                includes => includes.Marca);
                 return StatusCode(200, veiculos);                                    
             }
             catch (System.Exception er)
@@ -49,7 +54,9 @@ namespace api.Controllers.Veiculos
         {
             try
             {
-                var veiculo = await _entityService.BuscarPorId(id);
+                var veiculo = await _entityService.BuscarPorId(veiculo => veiculo.Id == id, includes => includes.Categoria,
+                                                                                            includes => includes.Modelo,
+                                                                                            includes => includes.Marca);
                 return StatusCode(200, veiculo);                                    
             }
             catch (System.Exception er)
@@ -60,11 +67,12 @@ namespace api.Controllers.Veiculos
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Post([FromBody]Veiculo veiculo)
+        public async Task<ActionResult> Post([FromBody]VeiculoVM veiculo)
         {
             try
             {
-                await _entityService.Salvar(veiculo);
+                var Builder = BuilderEntidade.ConverteEntidade<Veiculo>(veiculo);
+                await _entityService.Salvar(Builder);
                 return StatusCode(200);                                    
             }
             catch (System.Exception er)
@@ -96,7 +104,12 @@ namespace api.Controllers.Veiculos
         {
             try
             {
-                await _entityService.Excluir(id);
+                var entity = await _entityService.BuscarPorId(veiculo => veiculo.Id == id);
+                
+                if (entity == null)
+                    throw new Exception("Registro não encontrado");
+               
+                await _entityService.Excluir(entity);
                 return StatusCode(200);
             }
             catch (System.Exception er)

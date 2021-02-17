@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using api.Dominio.Negocio.Builder;
 using api.InfraEstrutura.Servico.Repositorio;
@@ -14,22 +15,20 @@ namespace api.Dominio.Negocio.Servicos
             this.entityRepositorio = entityRepositorio;
         }
 
-        public async Task Salvar(T entity){
-            var entityBuilder = BuilderEntidade.ConverteEntidade<T>(entity);
+        public async Task Salvar<T>(T entity){ 
+            
             await entityRepositorio.Salvar<T>(entity);
         }
 
-        public async Task Excluir(int id){
-            var entity = await entityRepositorio.BuscarPorId<T>(id);
-            if(entity == null){
-                throw new Exception("Registro não encontrado");
-            }
+        public async Task Excluir(T entity)
+        {         
 
             await entityRepositorio.Excluir<T>(entity);
         }
 
-        public async Task<T> BuscarPorId(int id){
-            var entity = await entityRepositorio.BuscarPorId<T>(id);
+        public async Task<T> BuscarPorId(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+        {
+            var entity = await entityRepositorio.BuscarPorId<T>(predicate, includes);
             if(entity == null){
                 throw new Exception("Registro não encontrado");
             }
@@ -37,13 +36,13 @@ namespace api.Dominio.Negocio.Servicos
             return entity;
         }
         
-        public async Task<List<T>> BuscarTodos()
+        public async Task<List<T>> BuscarTodos(params Expression<Func<T, object>>[] includes)
         {
-            var pessoas = await entityRepositorio.BuscarTodos<T>();
-            if (pessoas == null)
-                throw new Exception("Usuario não encontrado.");
+            var entity = await entityRepositorio.BuscarTodos<T>(includes);
+            if (entity == null)
+                throw new Exception("Registro não encontrado.");
             
-            return pessoas;   
+            return entity;   
         }
     }
 }

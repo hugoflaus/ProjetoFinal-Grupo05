@@ -1,3 +1,4 @@
+﻿using System;
 using System.Threading.Tasks;
 using api.Controllers.Login;
 using api.Dominio.Entidade.Veiculo;
@@ -31,8 +32,8 @@ namespace api.Controllers.Veiculos
         {
             try
             {
-                var veiculos = await _entityService.BuscarTodos();
-                return StatusCode(200, veiculos);                                    
+                var modelo = await _entityService.BuscarTodos();
+                return StatusCode(200, modelo);                                    
             }
             catch (System.Exception er)
             {
@@ -49,8 +50,8 @@ namespace api.Controllers.Veiculos
         {
             try
             {
-                var veiculo = await _entityService.BuscarPorId(id);
-                return StatusCode(200, veiculo);                                    
+                var modelo = await _entityService.BuscarPorId(modelo => modelo.Id == id);
+                return StatusCode(200, modelo);                                    
             }
             catch (System.Exception er)
             {
@@ -96,7 +97,12 @@ namespace api.Controllers.Veiculos
         {
             try
             {
-                await _entityService.Excluir(id);
+                var entity = await _entityService.BuscarPorId(modelo => modelo.Id == id);
+
+                if (entity == null)
+                    throw new Exception("Registro não encontrado");
+
+                await _entityService.Excluir(entity);
                 return StatusCode(200);
             }
             catch (System.Exception er)
