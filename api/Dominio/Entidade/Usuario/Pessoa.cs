@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using api.Dominio.Entidade.Enums;
 
 namespace api.Dominio.Entidade.Usuario
@@ -32,8 +34,10 @@ namespace api.Dominio.Entidade.Usuario
         public string Complemento { get; set; }
         public string Cidade { get; set; }
         public string Uf { get; set; }
-
         public virtual PersonRole Regra { get { return (PersonRole)Enum.ToObject(typeof(PersonRole), this.Tipo); } }
+
+        [JsonIgnore]
+        public List<Agendamento.Agendamento> Agendamentos { get; set; }
 
     }
 }

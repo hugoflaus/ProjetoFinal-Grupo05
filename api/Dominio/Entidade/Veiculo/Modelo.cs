@@ -15,7 +15,7 @@ namespace api.Dominio.Entidade.Veiculo
         public string Nome { get; set; } 
 
         [JsonIgnore]
-        public virtual ICollection<Veiculo> Veiculos { get; set; }
+        public virtual List<Veiculo> Veiculos { get; set; }
     
     }
 }

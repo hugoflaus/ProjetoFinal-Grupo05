@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using api.Dominio.Entidade.Enums;
@@ -30,24 +31,20 @@ namespace api.Dominio.Entidade.Veiculo
         [JsonIgnore]
         [Required]
         public int IdMarca { get; set; }
-
-       
         public Marca Marca { get; set; }
 
         [JsonIgnore]
         [Required]
         public int IdModelo { get; set; }
-
-        
         public Modelo Modelo { get; set; }
-
 
         [JsonIgnore]
         [Required]
         public int IdCategoria { get; set; }
-
-		
         public Categoria Categoria { get; set; }
+        
+        [JsonIgnore]
+        public List<Agendamento.Agendamento> Agendamentos { get; set; }
 
     }
 }

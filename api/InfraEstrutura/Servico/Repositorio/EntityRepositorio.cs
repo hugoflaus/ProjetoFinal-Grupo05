@@ -34,7 +34,8 @@ namespace api.InfraEstrutura.Servico.Repositorio
             await context.SaveChangesAsync();
         }
 
-        public async Task<T> BuscarPorId<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes) where T : class
+    
+        public async Task<T> Filtrar<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes) where T : class
         {
             var entity = context.Set<T>().Where(predicate);                                      
 
@@ -45,6 +46,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
 
             return await entity.FirstOrDefaultAsync();
         }       
+      
 
         public async Task<List<T>> BuscarTodos<T>(params Expression<Func<T, object>>[] includes) where T : class
         {

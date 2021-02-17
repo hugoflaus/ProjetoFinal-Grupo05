@@ -10,7 +10,7 @@ using api.Infra.Database;
 namespace api.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    [Migration("20210216192913_initial")]
+    [Migration("20210217133425_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,95 @@ namespace api.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
+
+            modelBuilder.Entity("api.Dominio.Entidade.Agendamento.Agendamento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<decimal>("CustosAdicionais")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DataAgendamento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataColetaPrevista")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataColetaRealizada")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataEntregaPrevista")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataEntregaRealizada")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("HorasLocacao")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("IdChecklist")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPessoa")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdVeiculo")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RealizadaVistoria")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("SubTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorHora")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdChecklist")
+                        .IsUnique()
+                        .HasFilter("[IdChecklist] IS NOT NULL");
+
+                    b.HasIndex("IdPessoa");
+
+                    b.HasIndex("IdVeiculo");
+
+                    b.ToTable("schedule");
+                });
+
+            modelBuilder.Entity("api.Dominio.Entidade.Agendamento.Checklist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<bool>("Amassados")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Arranhoes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CarroLimpo")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("TanqueCheio")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TanqueLitroPendent")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("checklists");
+                });
 
             modelBuilder.Entity("api.Dominio.Entidade.Usuario.Pessoa", b =>
                 {
@@ -74,7 +163,7 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Dominio.Entidade.Veiculo.Categoria", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -83,14 +172,14 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("categories");
                 });
 
             modelBuilder.Entity("api.Dominio.Entidade.Veiculo.Marca", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -99,14 +188,14 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("brands");
                 });
 
             modelBuilder.Entity("api.Dominio.Entidade.Veiculo.Modelo", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -115,7 +204,7 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("models");
                 });
@@ -143,6 +232,9 @@ namespace api.Migrations
                     b.Property<int>("IdModelo")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdVeiculo")
+                        .HasColumnType("int");
+
                     b.Property<string>("LimitePorMalas")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -155,6 +247,9 @@ namespace api.Migrations
                     b.Property<decimal>("ValorHora")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("veiculoId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdCategoria");
@@ -163,7 +258,34 @@ namespace api.Migrations
 
                     b.HasIndex("IdModelo");
 
+                    b.HasIndex("veiculoId");
+
                     b.ToTable("cars");
+                });
+
+            modelBuilder.Entity("api.Dominio.Entidade.Agendamento.Agendamento", b =>
+                {
+                    b.HasOne("api.Dominio.Entidade.Agendamento.Checklist", "Checklist")
+                        .WithOne("Agendamento")
+                        .HasForeignKey("api.Dominio.Entidade.Agendamento.Agendamento", "IdChecklist");
+
+                    b.HasOne("api.Dominio.Entidade.Usuario.Pessoa", "Pessoa")
+                        .WithMany("Agendamentos")
+                        .HasForeignKey("IdPessoa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Dominio.Entidade.Veiculo.Veiculo", "Veiculo")
+                        .WithMany("Agendamentos")
+                        .HasForeignKey("IdVeiculo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Checklist");
+
+                    b.Navigation("Pessoa");
+
+                    b.Navigation("Veiculo");
                 });
 
             modelBuilder.Entity("api.Dominio.Entidade.Veiculo.Veiculo", b =>
@@ -186,11 +308,27 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("api.Dominio.Entidade.Veiculo.Veiculo", "veiculo")
+                        .WithMany()
+                        .HasForeignKey("veiculoId");
+
                     b.Navigation("Categoria");
 
                     b.Navigation("Marca");
 
                     b.Navigation("Modelo");
+
+                    b.Navigation("veiculo");
+                });
+
+            modelBuilder.Entity("api.Dominio.Entidade.Agendamento.Checklist", b =>
+                {
+                    b.Navigation("Agendamento");
+                });
+
+            modelBuilder.Entity("api.Dominio.Entidade.Usuario.Pessoa", b =>
+                {
+                    b.Navigation("Agendamentos");
                 });
 
             modelBuilder.Entity("api.Dominio.Entidade.Veiculo.Categoria", b =>
@@ -206,6 +344,11 @@ namespace api.Migrations
             modelBuilder.Entity("api.Dominio.Entidade.Veiculo.Modelo", b =>
                 {
                     b.Navigation("Veiculos");
+                });
+
+            modelBuilder.Entity("api.Dominio.Entidade.Veiculo.Veiculo", b =>
+                {
+                    b.Navigation("Agendamentos");
                 });
 #pragma warning restore 612, 618
         }

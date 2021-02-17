@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using api.Dominio.Entidade.Usuario;
 using api.Dominio.Entidade.Veiculo;
+using api.Dominio.Entidade.Agendamento;
 
 namespace api.Infra.Database
 {
@@ -33,12 +34,27 @@ namespace api.Infra.Database
                 .HasOne(v => v.Modelo)
                 .WithMany(m => m.Veiculos)
                 .HasForeignKey(v => v.IdModelo);
+
+            modelBuilder.Entity<Agendamento>()
+                .HasOne(a => a.Veiculo)
+                .WithMany( v => v.Agendamentos)
+                .HasForeignKey( a => a.IdVeiculo);
+            modelBuilder.Entity<Agendamento>()
+                .HasOne(a  => a.Pessoa)
+                .WithMany(p => p.Agendamentos)
+                .HasForeignKey(a => a.IdPessoa);
+
+            modelBuilder.Entity<Checklist>()
+                .HasOne(c => c.Agendamento)
+                .WithOne(a => a.Checklist)
+                .HasForeignKey<Agendamento>(c => c.IdChecklist);    
         }
         public DbSet<Pessoa> Usuario { get; set; }
         public DbSet<Veiculo> Veiculo { get; set; }
         public DbSet<Modelo> Modelo { get; set; }
         public DbSet<Marca> Marca { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
-    
+        public DbSet<Agendamento> Agendamento { get; set; }
+        public DbSet<Checklist> Checklist { get; set; }
     }
 }
