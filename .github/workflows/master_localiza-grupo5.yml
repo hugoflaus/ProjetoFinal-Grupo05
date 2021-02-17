@@ -1,7 +1,7 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy dotnet core app to Azure Function App - localiza-grupo5
+name: Build and deploy ASP.Net Core app to Azure Web App - localiza-grupo5
 
 on:
   push:
@@ -9,35 +9,28 @@ on:
       - master
   workflow_dispatch:
 
-env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '3.1.301'  # set this to the dotnet version to use
-
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
-    steps:
-    - name: 'Checkout GitHub Action'
-      uses: actions/checkout@master
+    runs-on: ubuntu-latest
 
-    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: '5.0.x'
 
-    - name: 'Resolve Project Dependencies Using Dotnet'
-      shell: pwsh
-      run: |
-        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-        dotnet build --configuration Release --output ./output
-        popd
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
 
-    - name: 'Run Azure Functions Action'
-      uses: Azure/functions-action@v1
-      id: fa
+    - name: dotnet publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
       with:
         app-name: 'localiza-grupo5'
         slot-name: 'production'
-        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3c2afc5add204265b887817e6949dea9 }}
-  
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_33d2cff9fde54ce6bb9a7d20fb764751 }}
+        package: ${{env.DOTNET_ROOT}}/myapp 
