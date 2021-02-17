@@ -16,7 +16,8 @@ namespace api.Infra.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=tcp:localizabd.database.windows.net,1433;Initial Catalog=localiza;Persist Security Info=False;User ID=hugo;Password=localiza85@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            JToken jAppSettings = JToken.Parse(File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "appsettings.json")));
+            optionsBuilder.UseSqlServer(jAppSettings["ConnectionString"].ToString());
         }
 
          protected override void OnModelCreating(ModelBuilder modelBuilder)
