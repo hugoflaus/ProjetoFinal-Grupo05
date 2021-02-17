@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 
-namespace api.Dominio.Entidade
+namespace api.Dominio.ViewModel.Pessoa
 {
-    public interface IPessoa
-    {
-        public int Id { get; set; }
-
+    public record PessoaAlterar
+    {  
         public string Nome { get; set; }
 
-        public string Senha { get; set; }
-
-        public PerfilUsuario Tipo { get; set; }
-
         public DateTime Aniversario { get; set; }
-        
+
         public string Cep { get; set; }
 
         public string Logradouro { get; set; }
@@ -28,5 +19,10 @@ namespace api.Dominio.Entidade
         public string Cidade { get; set; }
 
         public string Uf { get; set; }
+
+        public int Tipo { get; set; }
+
+        public string Documento { get; set; }
+        
     }
 }

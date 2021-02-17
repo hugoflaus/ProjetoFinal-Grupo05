@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using api.Dominio.Entidade;
+using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace api.Dominio.Entidade
+namespace api.Dominio.ViewModel.Pessoa
 {
-    public class Operador : IPessoa, IOperador
+    public record PessoaSalvar
     {
-        public int Id { get; set; }
-
-        public string Nome { get; set; }
-
+        [Required]
         public string Senha { get; set; }
 
-        public PerfilUsuario Tipo { get; set; }
-
-        public string Matricula { get; set; }
+        [Required]
+        public string Nome { get; set; }
 
         public DateTime Aniversario { get; set; }
 
@@ -30,5 +25,11 @@ namespace api.Dominio.Entidade
         public string Cidade { get; set; }
 
         public string Uf { get; set; }
+
+        [Required]
+        public int Tipo { get; set; }
+
+        [Required]
+        public string Documento { get; set; }
     }
 }
