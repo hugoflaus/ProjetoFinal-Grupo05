@@ -32,5 +32,5 @@ jobs:
       with:
         app-name: 'localiza-grupo5'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_33d2cff9fde54ce6bb9a7d20fb764751 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f5bea7d9ebb24228b54c8e4015d96554 }}
         package: ${{env.DOTNET_ROOT}}/myapp 
