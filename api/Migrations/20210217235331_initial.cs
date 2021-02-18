@@ -97,11 +97,16 @@ namespace api.Migrations
                     ValorHora = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     LimitePorMalas = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Combustivel = table.Column<int>(type: "int", nullable: false),
+                    KilomentroPorLitro = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VelocidadeMaxima = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ocupantes = table.Column<int>(type: "int", nullable: false),
+                    Cambio = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Potencia = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IdMarca = table.Column<int>(type: "int", nullable: false),
                     IdModelo = table.Column<int>(type: "int", nullable: false),
-                    IdCategoria = table.Column<int>(type: "int", nullable: false),
-                    IdVeiculo = table.Column<int>(type: "int", nullable: false),
-                    veiculoId = table.Column<int>(type: "int", nullable: true)
+                    IdCategoria = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,12 +117,6 @@ namespace api.Migrations
                         principalTable: "brands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_cars_cars_veiculoId",
-                        column: x => x.veiculoId,
-                        principalTable: "cars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_cars_categories_IdCategoria",
                         column: x => x.IdCategoria,
@@ -190,11 +189,6 @@ namespace api.Migrations
                 name: "IX_cars_IdModelo",
                 table: "cars",
                 column: "IdModelo");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_cars_veiculoId",
-                table: "cars",
-                column: "veiculoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_schedule_IdChecklist",

@@ -10,7 +10,7 @@ using api.Infra.Database;
 namespace api.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    [Migration("20210217133425_initial")]
+    [Migration("20210217235331_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -220,8 +220,14 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Cambio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Combustivel")
                         .HasColumnType("int");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdCategoria")
                         .HasColumnType("int");
@@ -232,23 +238,33 @@ namespace api.Migrations
                     b.Property<int>("IdModelo")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdVeiculo")
-                        .HasColumnType("int");
+                    b.Property<string>("KilomentroPorLitro")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LimitePorMalas")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Ocupantes")
+                        .HasColumnType("int");
 
                     b.Property<string>("Placa")
                         .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)");
 
+                    b.Property<string>("Potencia")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("ValorHora")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("veiculoId")
-                        .HasColumnType("int");
+                    b.Property<string>("VelocidadeMaxima")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -257,8 +273,6 @@ namespace api.Migrations
                     b.HasIndex("IdMarca");
 
                     b.HasIndex("IdModelo");
-
-                    b.HasIndex("veiculoId");
 
                     b.ToTable("cars");
                 });
@@ -308,17 +322,11 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("api.Dominio.Entidade.Veiculo.Veiculo", "veiculo")
-                        .WithMany()
-                        .HasForeignKey("veiculoId");
-
                     b.Navigation("Categoria");
 
                     b.Navigation("Marca");
 
                     b.Navigation("Modelo");
-
-                    b.Navigation("veiculo");
                 });
 
             modelBuilder.Entity("api.Dominio.Entidade.Agendamento.Checklist", b =>
