@@ -35,7 +35,19 @@ namespace api.InfraEstrutura.Servico.Repositorio
         }
 
     
-        public async Task<T> Filtrar<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes) where T : class
+        public async Task<List<T>> Filtrar<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes) where T : class
+        {
+            var entity = context.Set<T>().Where(predicate);                                      
+
+            foreach (Expression<Func<T, object>> i in includes)
+            {
+                entity = entity.Include(i);
+            }
+
+            return await entity.ToListAsync();
+        }       
+        
+        public async Task<T> Buscar<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes) where T : class
         {
             var entity = context.Set<T>().Where(predicate);                                      
 
@@ -57,6 +69,11 @@ namespace api.InfraEstrutura.Servico.Repositorio
                 entity = entity.Include(incluir);
             }
             return await entity.ToListAsync();
+        }
+
+        public Task<T> Buscar<T>(params Expression<Func<T, object>>[] includes) where T : class
+        {
+            throw new NotImplementedException();
         }
     }
 }

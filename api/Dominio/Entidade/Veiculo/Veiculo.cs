@@ -26,6 +26,7 @@ namespace api.Dominio.Entidade.Veiculo
         [Required]
         public string LimitePorMalas { get; set; }
         [Required]
+
         public Combustivel Combustivel { get; set; }
 
         public string KilomentroPorLitro { get; set; }

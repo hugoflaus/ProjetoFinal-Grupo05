@@ -28,7 +28,7 @@ namespace api.Dominio.Negocio.Servicos
 
         public async Task<T> BuscarPorId(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            var entity = await entityRepositorio.Filtrar<T>(predicate, includes);
+            var entity = await entityRepositorio.Buscar<T>(predicate, includes);
             if(entity == null){
                 throw new Exception("Registro não encontrado");
             }
@@ -36,7 +36,7 @@ namespace api.Dominio.Negocio.Servicos
             return entity;
         }
 
-        public async Task<T> BuscarPorPessoa(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+        public async Task<List<T>> BuscarPorPessoa(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
             var entity = await entityRepositorio.Filtrar<T>(predicate, includes);
             if(entity == null){
@@ -53,6 +53,15 @@ namespace api.Dominio.Negocio.Servicos
                 throw new Exception("Registro não encontrado.");
             
             return entity;   
+        }
+        public async Task<List<T>> Filtrar(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+        {
+            var entity = await entityRepositorio.Filtrar<T>(predicate, includes);
+            if(entity == null){
+                throw new Exception("Registro não encontrado");
+            }
+
+            return entity;
         }
     }
 }

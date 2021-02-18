@@ -65,6 +65,25 @@ namespace api.Controllers.Veiculos
             }
         }
 
+        [HttpGet]
+        [Route("categotia/{categoria}")]
+        [AllowAnonymous]
+        public async Task<ActionResult> BuscarPorCategoria(int categoria)
+        {
+            try
+            {
+                var veiculos = await _entityService.Filtrar(veiculo => veiculo.IdCategoria == categoria, includes => includes.Categoria,
+                                                                                            includes => includes.Modelo,
+                                                                                            includes => includes.Marca);
+                return StatusCode(200, veiculos);                                    
+            }
+            catch (System.Exception er)
+            {
+                return StatusCode(401, new { er.Message });
+            }
+        }
+
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Post([FromBody]VeiculoVM veiculo)
