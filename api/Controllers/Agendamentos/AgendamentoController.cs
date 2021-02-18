@@ -38,8 +38,7 @@ namespace api.Controllers.Agendamentos
                                                                     includes => includes.Veiculo,
                                                                     includes => includes.Veiculo.Marca,
                                                                     includes => includes.Veiculo.Modelo,
-                                                                    includes => includes.Veiculo.Categoria,
-                                                                    includes => includes.Checklist);
+                                                                    includes => includes.Veiculo.Categoria);
                 return StatusCode(200, agendamentos);                                    
             }
             catch (System.Exception er)

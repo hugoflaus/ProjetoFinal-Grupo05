@@ -4,7 +4,8 @@ using api.Dominio.Entidade.Usuario;
 
 namespace api.InfraEstrutura.Servico.Repositorio.Veiculo
 {
-    public interface IVeiculoRepositorio
+    public interface IChecklistRepositorio
     {
+        Task<T> Salvar<T>(T entityRepositorio);
     }
 }

@@ -10,11 +10,11 @@ namespace api.Dominio.ViewModel.Agendamento
 
         public DateTime DataColetaPrevista { get; set; }
 
-        public DateTime DataColetaRealizada { get; set; }
+        public DateTime? DataColetaRealizada { get; set; }
 
         public DateTime DataEntregaPrevista { get; set; }
 
-        public DateTime DataEntregaRealizada { get; set; }
+        public DateTime? DataEntregaRealizada { get; set; }
         public Decimal ValorHora { get; set; }
 
         public Double HorasLocacao { get; set; }

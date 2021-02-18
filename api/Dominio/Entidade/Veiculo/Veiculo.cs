@@ -58,6 +58,7 @@ namespace api.Dominio.Entidade.Veiculo
         [JsonIgnore]
         [Required]
         public int IdCategoria { get; set; }
+        
         public Categoria Categoria { get; set; }
         
         [JsonIgnore]

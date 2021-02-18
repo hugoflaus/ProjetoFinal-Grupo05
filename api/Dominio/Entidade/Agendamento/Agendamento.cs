@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using api.Dominio.Entidade.Usuario;
 using api.Dominio.Entidade.Veiculo;
 
@@ -18,14 +19,12 @@ namespace api.Dominio.Entidade.Agendamento
         [Required]
         public DateTime DataColetaPrevista { get; set; }
 
-        [Required]
-        public DateTime DataColetaRealizada { get; set; }
+        public DateTime? DataColetaRealizada { get; set; }
 
         [Required]
         public DateTime DataEntregaPrevista { get; set; }
 
-        [Required]
-        public DateTime DataEntregaRealizada { get; set; }
+        public DateTime? DataEntregaRealizada { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
