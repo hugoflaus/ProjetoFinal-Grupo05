@@ -80,8 +80,15 @@ namespace api.Controllers.Veiculos
         {
             try
             {  
-                await _entityService.BuscarPorId(categoria => categoria.Id == id);
+                var categoriaAlteracao = await _entityService.BuscarPorId(categoria => categoria.Id == id);
+
+                if (categoriaAlteracao == null)
+                  throw new Exception("O identificador não foi encontrado");
+
+                categoria.Id = categoriaAlteracao.Id;
                 var categoriaBD = await _entityService.Alterar(categoria);
+
+                
                 return StatusCode(200, categoriaBD);
             }
             catch (System.Exception er)

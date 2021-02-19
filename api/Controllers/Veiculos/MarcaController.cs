@@ -81,7 +81,12 @@ namespace api.Controllers.Veiculos
         {
             try
             {  
-                await _entityService.BuscarPorId(marca => marca.Id == id);
+                var marcaAlteracao = await _entityService.BuscarPorId(marca => marca.Id == id);
+
+                if(marcaAlteracao == null)
+                  throw new Exception("O identificador não foi encontrado");
+
+                marca.Id = marcaAlteracao.Id;
                 var marcaBD = await _entityService.Alterar(marca);
                 return StatusCode(200, marcaBD);
             }
