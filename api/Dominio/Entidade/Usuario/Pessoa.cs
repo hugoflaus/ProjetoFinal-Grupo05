@@ -26,6 +26,7 @@ namespace api.Dominio.Entidade.Usuario
 
         [Required]
         [MaxLength(150)]
+        [JsonIgnore]
         public virtual string Senha { get; set; }
         public DateTime Aniversario { get; set; }
         public string Cep { get; set; }

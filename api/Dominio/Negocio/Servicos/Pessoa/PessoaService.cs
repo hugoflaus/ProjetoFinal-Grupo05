@@ -60,13 +60,20 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
             return pessoa;   
         }
 
-        public async Task Salvar(PessoaSalvar pessoa)
-        {
-            var pessoaBuilder = BuilderEntidade.ConverteEntidade<Pessoa>(pessoa);
-            await entityRepositorio.Salvar<Pessoa>(pessoaBuilder);
+        public async Task VerificaUsuarioCadastrado(string Documento){
+            var pessoa = await entityRepositorio.Buscar<Pessoa>(pessoa => pessoa.Documento == Documento);
+            if(pessoa != null)
+                throw new Exception("Usuário já cadastrado.");
         }
 
-        public async Task Alterar(int id, PessoaAlterar pessoa)
+        public async Task<Pessoa> Salvar(PessoaSalvar pessoa)
+        {
+            var pessoaBuilder = BuilderEntidade.ConverteEntidade<Pessoa>(pessoa);
+            var pessoaBD = await entityRepositorio.Salvar<Pessoa>(pessoaBuilder);
+            return pessoaBD;
+        }
+
+        public async Task<Pessoa> Alterar(int id, PessoaAlterar pessoa)
         {
             var pessoaAlteracao = await entityRepositorio.Buscar<Pessoa>(pessoa => pessoa.Id == id);
 
@@ -77,7 +84,7 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
             pessoaBuilder.Id = pessoaAlteracao.Id;
             pessoaBuilder.Senha = pessoaAlteracao.Senha;
 
-            await entityRepositorio.Alterar<Pessoa>(pessoaBuilder);  
+            return await entityRepositorio.Alterar<Pessoa>(pessoaBuilder);  
         }
 
         public async Task Remover(int id)

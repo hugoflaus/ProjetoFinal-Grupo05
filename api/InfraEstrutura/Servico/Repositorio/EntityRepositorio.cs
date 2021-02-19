@@ -16,10 +16,11 @@ namespace api.InfraEstrutura.Servico.Repositorio
         {
             this.context = context;
         }
-        public async Task Alterar<T>(T entity)
+        public async Task<T> Alterar<T>(T entity)
         {
             context.Entry(entity).State = EntityState.Modified;
             await context.SaveChangesAsync();
+            return entity;
         }
 
         public async Task Excluir<T>(T entity)
@@ -28,10 +29,11 @@ namespace api.InfraEstrutura.Servico.Repositorio
             await context.SaveChangesAsync();
         }
 
-        public async Task Salvar<T>(T entity) 
+        public async Task<T> Salvar<T>(T entity) 
         {
             context.Add(entity);
             await context.SaveChangesAsync();
+            return entity;
         }
 
     
@@ -44,7 +46,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
                 entity = entity.Include(i);
             }
 
-            return await entity.ToListAsync();
+            return await entity.AsNoTracking<T>().ToListAsync();
         }       
         
         public async Task<T> Buscar<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes) where T : class
@@ -56,7 +58,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
                 entity = entity.Include(i);
             }
 
-            return await entity.FirstOrDefaultAsync();
+            return await entity.AsNoTracking<T>().FirstOrDefaultAsync();
         }       
       
 
@@ -68,7 +70,7 @@ namespace api.InfraEstrutura.Servico.Repositorio
             {
                 entity = entity.Include(incluir);
             }
-            return await entity.ToListAsync();
+            return await entity.AsNoTracking<T>().ToListAsync();
         }
 
         public Task<T> Buscar<T>(params Expression<Func<T, object>>[] includes) where T : class

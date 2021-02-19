@@ -15,9 +15,16 @@ namespace api.Dominio.Negocio.Servicos
             this.entityRepositorio = entityRepositorio;
         }
 
-        public async Task Salvar(T entity){ 
+        public async Task<T> Salvar(T entity){ 
             
-            await entityRepositorio.Salvar(entity);
+            var entidateBD = await entityRepositorio.Salvar(entity);
+            return entidateBD;
+        }
+
+        public async Task<T> Alterar(T entity){ 
+           
+            var entidateBD = await entityRepositorio.Alterar(entity);
+            return entidateBD;
         }
 
         public async Task Excluir(T entity)

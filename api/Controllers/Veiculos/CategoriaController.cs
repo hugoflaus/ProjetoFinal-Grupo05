@@ -65,8 +65,7 @@ namespace api.Controllers.Veiculos
         {
             try
             {
-                await _entityService.Salvar(categoria);
-                return StatusCode(200);                                    
+                return StatusCode(200, await _entityService.Salvar(categoria));                                    
             }
             catch (System.Exception er)
             {
@@ -74,21 +73,22 @@ namespace api.Controllers.Veiculos
             }
         }
 
-       /*  [HttpPut]
-        [Route("/usuario/{id}")]
+        [HttpPut]
+        [Route("/categoria/{id}")]
         [AllowAnonymous]
-        public Task<ActionResult> Put(int id, [FromBody] Veiculo pessoaAlterar)
+        public async Task<ActionResult> Put(int id, [FromBody] Categoria categoria)
         {
             try
-            {
-                //await _entityService.Alterar(id, pessoaAlterar);
-               // return StatusCode(200);
+            {  
+                await _entityService.BuscarPorId(categoria => categoria.Id == id);
+                var categoriaBD = await _entityService.Alterar(categoria);
+                return StatusCode(200, categoriaBD);
             }
-            catch (System.Exception)
+            catch (System.Exception er)
             {
-                //return StatusCode(401, new { er.Message });
+                return StatusCode(401, new { er.Message });
             }
-        } */
+        }
 
         [HttpDelete]
         [Route("{id}")]

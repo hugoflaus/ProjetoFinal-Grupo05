@@ -15,7 +15,7 @@ namespace api.Dominio.Negocio.Servicos.Agendamento
             this.entityRepositorio = entityRepositorio;
         }
 
-        public async Task Salvar(Checklist checklist, int idAgendamento)
+        public async Task<Checklist> Salvar(Checklist checklist, int idAgendamento)
         {
             var entidade = await checklistRepositorio.Salvar<Checklist>(checklist);
             var agendamento = await entityRepositorio.Buscar<Dominio.Entidade.Agendamento.Agendamento>(a => a.Id == idAgendamento);
@@ -26,7 +26,8 @@ namespace api.Dominio.Negocio.Servicos.Agendamento
             
             agendamento.IdChecklist = entidade.Id;
             await entityRepositorio.Alterar<Dominio.Entidade.Agendamento.Agendamento>(agendamento);
-        }
+            return entidade;
 
+        }
     }
 }

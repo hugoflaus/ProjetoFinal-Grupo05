@@ -91,8 +91,7 @@ namespace api.Controllers.Veiculos
             try
             {
                 var Builder = BuilderEntidade.ConverteEntidade<Veiculo>(veiculo);
-                await _entityService.Salvar(Builder);
-                return StatusCode(200);                                    
+                return StatusCode(200, await _entityService.Salvar(Builder));                                    
             }
             catch (System.Exception er)
             {
@@ -100,21 +99,22 @@ namespace api.Controllers.Veiculos
             }
         }
 
-       /*  [HttpPut]
-        [Route("/usuario/{id}")]
+        [HttpPut]
+        [Route("/veiculo/{id}")]
         [AllowAnonymous]
-        public Task<ActionResult> Put(int id, [FromBody] Veiculo pessoaAlterar)
+        public async Task<ActionResult> Put(int id, [FromBody] VeiculoVM veiculo)
         {
             try
-            {
-                //await _entityService.Alterar(id, pessoaAlterar);
-               // return StatusCode(200);
+            {   var Builder = BuilderEntidade.ConverteEntidade<Veiculo>(veiculo);
+                await _entityService.BuscarPorId(veiculo => veiculo.Id == id);
+                var veiculoBD = await _entityService.Alterar(Builder);
+                return StatusCode(200, veiculoBD);
             }
-            catch (System.Exception)
+            catch (System.Exception er)
             {
-                //return StatusCode(401, new { er.Message });
+                return StatusCode(401, new { er.Message });
             }
-        } */
+        } 
 
         [HttpDelete]
         [Route("{id}")]

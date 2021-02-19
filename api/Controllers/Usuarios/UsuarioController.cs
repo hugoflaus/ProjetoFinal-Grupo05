@@ -66,8 +66,8 @@ namespace api.Controllers.Usuarios
         {
             try
             {
-                await _pessoaUsuario.Salvar(pessoaSalvar);
-                return StatusCode(200);                                    
+                await _pessoaUsuario.VerificaUsuarioCadastrado(pessoaSalvar.Documento);
+                return StatusCode(200, await _pessoaUsuario.Salvar(pessoaSalvar));                                    
             }
             catch (System.Exception er)
             {
@@ -82,8 +82,7 @@ namespace api.Controllers.Usuarios
         {
             try
             {
-                await _pessoaUsuario.Alterar(id, pessoaAlterar);
-                return StatusCode(200);
+                return StatusCode(200, await _pessoaUsuario.Alterar(id, pessoaAlterar));
             }
             catch (System.Exception er)
             {
