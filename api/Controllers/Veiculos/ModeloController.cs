@@ -74,7 +74,7 @@ namespace api.Controllers.Veiculos
         }
 
         [HttpPut]
-        [Route("/modelo/{id}")]
+        [Route("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult> Put(int id, [FromBody] Modelo modelo)
         {
