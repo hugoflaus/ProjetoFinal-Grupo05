@@ -12,6 +12,9 @@ namespace api.Dominio.ViewModel.Pessoa
 
         [Required]
         public string Token { get; set; }
+
+        [Required]
+        public string Tipo { get; set; }
         
     }
 }
