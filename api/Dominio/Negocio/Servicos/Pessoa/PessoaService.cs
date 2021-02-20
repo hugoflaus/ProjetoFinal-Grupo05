@@ -38,6 +38,7 @@ namespace api.Dominio.Negocio.Servicos.Usuarios
             {
                 Id = pessoaLogada.Id,
                 Name = pessoaLogada.Nome,
+                Documento = pessoaLogada.Documento,
                 Tipo = pessoaLogada.Tipo.ToString(),
                 Token = token.GerarToken(pessoaLogada)
             };

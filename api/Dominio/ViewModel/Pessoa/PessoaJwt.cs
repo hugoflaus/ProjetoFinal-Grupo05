@@ -15,6 +15,8 @@ namespace api.Dominio.ViewModel.Pessoa
 
         [Required]
         public string Tipo { get; set; }
+
+        public string Documento { get; set; }
         
     }
 }
