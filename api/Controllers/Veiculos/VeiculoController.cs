@@ -106,7 +106,10 @@ namespace api.Controllers.Veiculos
         {
             try
             {   var Builder = BuilderEntidade.ConverteEntidade<Veiculo>(veiculo);
-                await _entityService.BuscarPorId(veiculo => veiculo.Id == id);
+                var registro = await _entityService.BuscarPorId(veiculo => veiculo.Id == id);
+                 
+
+                Builder.Id = registro.Id;
                 var veiculoBD = await _entityService.Alterar(Builder);
                 return StatusCode(200, veiculoBD);
             }
