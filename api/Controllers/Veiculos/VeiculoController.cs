@@ -66,7 +66,7 @@ namespace api.Controllers.Veiculos
         }
 
         [HttpGet]
-        [Route("categotia/{categoria}")]
+        [Route("categoria/{categoria}")]
         [AllowAnonymous]
         public async Task<ActionResult> BuscarPorCategoria(int categoria)
         {
