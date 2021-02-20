@@ -75,7 +75,7 @@ namespace api.Controllers.Veiculos
         }
 
         [HttpPut]
-        [Route("/marca/{id}")]
+        [Route("api/marca/{id}")]
         [AllowAnonymous]
         public async Task<ActionResult> Put(int id, [FromBody] Marca marca)
         {
