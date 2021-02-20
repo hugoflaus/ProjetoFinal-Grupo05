@@ -66,7 +66,7 @@ namespace api.Controllers.Veiculos
         }
 
         [HttpGet]
-        [Route("categotia/{categoria}")]
+        [Route("categoria/{categoria}")]
         [AllowAnonymous]
         public async Task<ActionResult> BuscarPorCategoria(int categoria)
         {
@@ -100,7 +100,7 @@ namespace api.Controllers.Veiculos
         }
 
         [HttpPut]
-        [Route("api/veiculo/{id}")]
+        [Route("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult> Put(int id, [FromBody] VeiculoVM veiculo)
         {
