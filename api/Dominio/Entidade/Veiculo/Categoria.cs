@@ -13,6 +13,11 @@ namespace api.Dominio.Entidade.Veiculo
 
         [Required]
         public string Nome { get; set; }
+        
+        [Required]
+        public string url { get; set; }
+
+        public string Descricao { get; set; }
 
         [JsonIgnore]
         public List<Veiculo> Veiculos { get; set; }
